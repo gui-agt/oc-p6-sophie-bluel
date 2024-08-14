@@ -18,9 +18,9 @@
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav>
 			<ul>
-				<li>projets</li>
-				<li>contact</li>
-				<li><a href="login.html">login</a></li>
+				<li class="bold-active">projets</li>
+				<li><a href="#contact">contact</a></li>
+				<li class="log-btn"><a href="login.html">login</a></li>
 				<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 			</ul>
 		</nav>
@@ -59,7 +59,6 @@
 		</section>
 	</div>
 </main>
-
 <footer>
 	<nav>
 		<ul>
@@ -67,19 +66,16 @@
 		</ul>
 	</nav>
 </footer>
-
 <div class="modal-main-container">
-
-    <div class="modal-container-galery" style="display: none;">
+    <div class="modal-container-gallery">
         <div class="header-modal">
 			<i class="fa-solid fa-xmark close-modal"></i>
         </div>
         <h3 class="h3-modal">Galerie photo</h3>
-        <div class="galery-thumbnails"></div>
+        <div class="gallery-thumbnails"></div>
         <hr class="separation-line">
         <input class="add-photo-btn" type="submit" value="Ajouter une photo" id="open-add-photo-modal">
 	</div>
-
     <div class="modal-container-add">
 		<div class="header-modal">
 			<i class="fa-solid fa-arrow-left back-button-modal"></i>
@@ -89,22 +85,19 @@
 		<div id="drop-photo-container">
 			<i class="fa-regular fa-image landscape-icon"></i>
 			<button type="button" id="browse-button">+ Ajouter une photo</button>
+			<input type="file" id="file-input" accept="image/jpeg, image/png">
 			<p>jpg, png : 4mo max</p>
+			<img id="preview-img">
 		</div>
         <form id="add-photo-form">
 			<label for="titre">Titre</label>
 			<input type="text" name="titre" id="titre" required>
 			<label class="category-label" for="categorie">Catégorie</label>
-			<select name="categorie" id="categorie" required>
-				<option value="cat1">Catégorie 1</option>
-				<option value="cat2">Catégorie 2</option>
-			</select>
+			<select name="categorie" id="categorie" required></select>
 		</form>
         <hr class="separation-line">
         <input type="submit" value="Valider" class="validate-btn">
 	</div>
-
 </div>
-
 </body>
 </html>
