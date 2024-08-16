@@ -549,6 +549,8 @@ footer nav ul {
 	grid-row-gap: 30px;
 	max-height: 400px;
 	overflow: scroll;
+	overflow-x: auto;
+	overflow-y: auto;
 }
 
 .thumbnail-container {
