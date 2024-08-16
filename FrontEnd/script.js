@@ -387,22 +387,21 @@ validateButton.addEventListener('click', async (event) => {
     try {
         // Envoie les données du formulaire au serveur via une requête POST
         const response = await fetch('http://localhost:5678/api/works', {
-            method: 'POST', // Méthode HTTP pour envoyer les données
+            method: 'POST',
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}` // Authentification avec le jeton stocké
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
             },
             body: formData // Les données du formulaire envoyées dans le corps de la requête
         });
 
-        // Vérifie si la réponse du serveur est réussie
         if (response.ok) {
-            alert('Photo ajoutée avec succès !'); // Affiche un message de succès
+            alert('Photo ajoutée avec succès !');
             generateGallery(); // Appelle la fonction pour mettre à jour la galerie avec la nouvelle photo
-            closeModals(); // Ferme la fenêtre modale
-            resetPhotoUpload();
+            closeModals();
+            resetPhotoUpload(); // réinitialise la photo uploadée
             openGalleryModal();
         } else {
-            alert('Erreur lors de l\'ajout de la photo.'); // Affiche un message d'erreur si la requête échoue
+            alert('Erreur lors de l\'ajout de la photo.');
         }
     } catch (error) {
         // Capture et affiche les erreurs en cas de problème avec la requête
