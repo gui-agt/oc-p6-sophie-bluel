@@ -3,9 +3,8 @@ async function generateGallery() {
     // Récupération des données via l'API
     const response = await fetch("http://localhost:5678/api/works");
     const allWorks = await response.json();
-    const gallery = document.querySelector(".gallery");
 
-    // Stockage des œuvres pour le filtrage
+    // Stockage des oeuvres pour le filtrage
     window.allWorks = allWorks;
 
     // Création de la galerie
@@ -70,7 +69,7 @@ async function generateFilters() {
         liElement.classList.add("filter-item");
         button.classList.add("filter-btn", `btn${category.name.replace(/\s+/g, '')}`); // Supprime les espaces pour les noms de classe
 
-        // Écouteur d'événements pour filtrer les œuvres
+        // Écouteur d'événements pour filtrer les oeuvres
         button.addEventListener("click", () => {
             filterGallery(category.id);
         });
@@ -82,7 +81,6 @@ async function generateFilters() {
 
 
 // Ajout de la fonction active button
-
 function setActiveButton() {
     const allButtons = document.querySelectorAll(".filter-btn");
 
@@ -107,12 +105,19 @@ function filterGallery(categoryId) {
         filteredWorks = window.allWorks.filter(work => work.categoryId === categoryId);
     }
 
-    // Rendre la galerie avec les œuvres filtrées
+    // Rendre la galerie avec les oeuvres filtrées
     renderGallery(filteredWorks);
 }
 
-// Initialiser la galerie (et les filtres dans la fonction applyEditionMode)
+// Initialiser la galerie
 generateGallery();
+
+
+// Fonction pour générer les filtres et bouton actif (dans la fonction applyEditionMode)
+async function setupFiltersAndButtons() {
+    await generateFilters();
+    setActiveButton();
+}
 
 
 // Accéder au token d'authentification
@@ -181,11 +186,6 @@ function editionModeLogOutBtn () {
 function handleLogOut () {
     localStorage.clear();
     location.reload();
-}
-
-async function setupFiltersAndButtons() {
-        await generateFilters();
-        setActiveButton();
 }
 
 function applyEditionMode () {
@@ -352,6 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const validateButton = document.querySelector('.validate-btn');
 const fileInput = document.getElementById('file-input');
 
+
 // Ajoute un écouteur d'événement pour la soumission du formulaire lorsqu'on clique sur le bouton de validation
 validateButton.addEventListener('click', async (event) => {
     // Empêche le comportement par défaut du bouton (rechargement de la page)
@@ -398,6 +399,8 @@ validateButton.addEventListener('click', async (event) => {
             alert('Photo ajoutée avec succès !'); // Affiche un message de succès
             generateGallery(); // Appelle la fonction pour mettre à jour la galerie avec la nouvelle photo
             closeModals(); // Ferme la fenêtre modale
+            resetPhotoUpload();
+            openGalleryModal();
         } else {
             alert('Erreur lors de l\'ajout de la photo.'); // Affiche un message d'erreur si la requête échoue
         }
@@ -408,6 +411,33 @@ validateButton.addEventListener('click', async (event) => {
     }
 });
 });
+
+
+// Fonction pour réinitialiser l'image uploadée
+function resetPhotoUpload() {
+    // Réinitialise l'input de fichier
+    const fileInput = document.getElementById('file-input');
+    fileInput.value = '';
+
+    // Réinitialise l'image de prévisualisation et autres éléments de la modal
+    const previewImg = document.getElementById('preview-img');
+    previewImg.src = '';
+    previewImg.style.display = 'none';
+
+    const landscapeIcon = document.querySelector('.landscape-icon');
+    const browseButton = document.getElementById('browse-button');
+    const photoContainer = document.getElementById('drop-photo-container');
+
+    // Affiche les éléments par défaut de la modal
+    landscapeIcon.style.display = 'block';
+    browseButton.style.display = 'block';
+    fileInput.style.display = 'none';
+    photoContainer.querySelector('p').style.display = 'block';
+
+    // Réinitialise également le titre et la catégorie
+    document.getElementById('titre').value = '';
+    document.getElementById('categorie').value = '';
+}
 
 
 // Fonction pour afficher la galerie dans la modale
